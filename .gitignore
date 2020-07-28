@@ -6,4 +6,5 @@ eshell/lastdir
 projectile-bookmarks.eld
 # The settings file is generated. The .org version is the important one.
 settings.el
+site-lisp/
 state/
