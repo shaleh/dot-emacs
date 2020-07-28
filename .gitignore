@@ -1,2 +1,7 @@
 *~
 *.elc
+elpa/
+eshell/history
+eshell/lastdir
+projectile-bookmarks.eld
+state/
