@@ -49,6 +49,25 @@ Helps when pasting to various places.
 	     :ensure t)
 #+END_SRC
 
+** reusable snippet support
+Super helpful snippet manager.
+
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :config
+  (use-package yasnippet-snippets
+               :ensure t)
+  (yas-global-mode t)
+  (add-to-list #'yas-snippet-dirs (concat user-emacs-directory (convert-standard-filename "snippets")))
+  (yas-reload-all)
+  (setq yas-prompt-functions '(yas-ido-prompt))
+  (defun help/yas-after-exit-snippet-hook-fn ()
+    (prettify-symbols-mode))
+  (add-hook 'yas-after-exit-snippet-hook #'help/yas-after-exit-snippet-hook-fn)
+  :diminish yas-minor-mode)
+#+END_SRC
+
 * Searching
 ** deadgrep
 Wilfred's amazing interface to ripgrep.
@@ -143,6 +162,7 @@ First, my common hook for most languages. It enables flycheck, flyspell, FIXME, 
 (defvar my/indented-modes '())
 
 (defun my/common-programming-hook ()
+   (setq indent-tabs-mode nil)
    (fci-mode) ; Fill Column Indicator.
    (fic-mode) ; FIXME handling.
    (flyspell-prog-mode)
@@ -199,10 +219,6 @@ First, my common hook for most languages. It enables flycheck, flyspell, FIXME, 
 	     :ensure t)
 (use-package jedi
              :ensure t)
-(use-package elpy
-	     :init
-	     (elpy-enable)
-	     :ensure t)
 (add-hook 'python-mode-hook 'my/common-programming-hook)
 (add-hook 'python-mode-hook
 	  (lambda ()
